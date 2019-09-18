@@ -28,4 +28,4 @@ rsfUtil does not include any exception handling. It assumes that all arguments a
 
 ## Example
 
-java -jar rsfutil-1.0.1.jar --outputType json --inputPath ~/arcade/arcade-1.0_r1_acdc_clustered.rsf --outputPath ~/arcade/arcade_eva.json --subsetPath ~/arcade/src/edu/usc/softarch --prepend edu.usc
+`java -jar rsfutil-1.0.1.jar --outputType json --inputPath ~/arcade/arcade-1.0_r1_acdc_clustered.rsf --outputPath ~/arcade/arcade_eva.json --subsetPath ~/arcade/src/edu/usc/softarch --prepend edu.usc`
