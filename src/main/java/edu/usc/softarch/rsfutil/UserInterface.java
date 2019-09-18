@@ -13,11 +13,11 @@ public class UserInterface
 {
   private String _instructions;
 
-  @Parameter(names={"--outputType"}, description="dot or json")
+  @Parameter(names={"--outputType"}, description="dot or json", required = true)
   String _outputType;
-  @Parameter(names={"--inputPath"}, description="path to rsf file")
+  @Parameter(names={"--inputPath"}, description="path to rsf file", required = true)
   String _inputPath;
-  @Parameter(names={"--outputPath"}, description="path for output file")
+  @Parameter(names={"--outputPath"}, description="path for output file", required = true)
   String _outputPath;
   @Parameter(names={"--substring"}, description="substring to filter in")
   String _substring;

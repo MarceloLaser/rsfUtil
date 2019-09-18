@@ -4,9 +4,14 @@
   <groupId>edu.usc.softarch</groupId>
   <artifactId>rsfutil</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>rsfutil</name>
   <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -22,27 +27,66 @@
     <dependency>
       <groupId>laser.util</groupId>
       <artifactId>laser-util</artifactId>
-      <version>1.0</version>
+      <version>1.0.2</version>
     </dependency>
   </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>edu.usc.softarch.rsfutil.UserInterface</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>false</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>3.0.0-M1</version>
+        <executions>
+          <execution>
+            <id>hack-binary</id>
+            <phase>clean</phase>
+            <configuration>
+              <file>${basedir}/src/main/resources/laser-util-1.0.2.jar</file>
+              <repositoryLayout>default</repositoryLayout>
+              <groupId>laser.util</groupId>
+              <artifactId>laser-util</artifactId>
+              <version>1.0.2</version>
+              <packaging>jar</packaging>
+              <generatePom>true</generatePom>
+            </configuration>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <archive>
+          <manifest>
+          <addClasspath>true</addClasspath>
+          <classpathPrefix>lib/</classpathPrefix>
+          <mainClass>edu.usc.softarch.rsfutil.UserInterface</mainClass>
+          </manifest>
+          </archive>
         </configuration>
       </plugin>
     </plugins>
