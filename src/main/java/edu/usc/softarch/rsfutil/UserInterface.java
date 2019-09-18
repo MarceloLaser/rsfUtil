@@ -39,7 +39,7 @@ public class UserInterface
       filters.add(new FilterSubset(
         ListFiles.listFiles(ui._subsetPath, ui._prepend)));
 
-    Converter converter;
+    Converter converter = null;
 
     switch(ui._outputType.toLowerCase())
     {
@@ -51,6 +51,7 @@ public class UserInterface
         break;
       default:
         System.out.println(ui._instructions);
+        System.exit(1);
     }
 
     converter.convertToFile(ui._inputPath, ui._outputPath);
